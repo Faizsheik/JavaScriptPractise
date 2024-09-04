@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+
+       <p id = "display"></p>
+        
+        
+       
+        
+
+        <script>
+
+            // let n = Number("2"); // returns 2
+            // let n = Number("A"); // NaN
+            // let n = Number.parseInt("256"); //returns 256
+            //let n  = Number.parseInt("c");   //NaN
+
+            let a = 7811;   
+           // let n = Number.parseInt(a);    //parse means it expects string as an argument.
+           let n = Number.isInteger(a);    // when using NUmber class methods , here a primitive will be wrapped into wrapper class Number and performs the action
+
+
+            // let a = new Number(990);
+            // let n = Number.parseInt(a); 
+            // here a is number object --> primitive number (valueOf()) --> string 
+
+
+            /*For Number Objects: Methods are called directly on the object.
+            For Primitive Numbers: JavaScript automatically wraps the primitive 
+            in a Number object to allow method calls. This wrapping happens implicitly,
+            so you can use Number methods as if they were available on primitive numbers.*/
+        
+        
+            document.getElementById("display").innerHTML = n;   
+
+        </script>
+    </body>
+</html>
