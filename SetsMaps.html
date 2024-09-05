@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+    </head>
+    <body>
+    
+
+        <p id = "array"></p>
+
+        <div id ="display">
+            
+        </div>
+        <script >
+
+            const a = new Set();
+
+            a.add("1");
+            a.add(20);
+            a.add(["1","2","3"]);
+            a.add("hi");
+
+            const arr = a.values();
+            let e  = "";
+
+            for(let x of arr)
+            {
+                e=e+x;
+            }
+            document.getElementById("display").innerHTML = e;
+
+
+            // let text = "";
+            // for(let x of a)
+            // {
+            //     text = text + x + "<br>";
+            // }
+
+            
+            // let ans2 = "";
+
+            // for(let [i,v] of array.entries())
+            // {
+            //     ans2 = ans2 + i+ ":" + v + "<br>";
+            // }
+            // document.getElementById("display").innerHTML = ans2;
+
+            let ans = "";
+            for(let [index,value] of a.entries())
+            {
+                ans = ans + index + ":" + value + "<br>";
+            }
+            document.getElementById("display").innerHTML = ans;
+
+            const array = [1,2,3];
+
+            let ans3 = "";
+            for(let i of array.keys())
+            {
+                ans3 = ans3 + i + "<br>";
+            }
+            document.getElementById("display").innerHTML = ans3;
+
+            //MAPS
+
+            let  books = new Map();
+
+            books.set("wings of fire",500);
+            books.set("harry potter",900);
+            books.set("mind",180);
+
+            let allbooks = "";
+            for(let y of books)
+            {
+               allbooks = allbooks + y + "<br>";
+            }
+            document.getElementById("display").innerHTML = allbooks;
+            allbooks = " ";
+
+            for(let [x,y] of books.entries())
+            {
+                allbooks = allbooks + x + ":" + y + "<br>";
+            }
+            document.getElementById("display").innerHTML = allbooks;
+
+
+
+            
+
+
+
+
+
+
+
+
+
+
+        </script>
+
+    </body>
+</html>

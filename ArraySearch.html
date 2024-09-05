@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+    </head>
+    <body>
+        <div id ="display"></div>
+
+        <script>
+        const a = [19,34,56,26,19,75,19,4];
+
+        //1. indexOf()
+        document.getElementById("display").innerHTML = a.indexOf(56);
+        document.getElementById("display").innerHTML = a.lastIndexOf(19);
+        document.getElementById("display").innerHTML = a.includes(0);
+        document.getElementById("display").innerHTML = a.find(greaterthan10);
+        document.getElementById("display").innerHTML = a.findIndex(greaterthan10);
+        document.getElementById("display").innerHTML = a.findLast(greaterthan10);
+        document.getElementById("display").innerHTML = a.findLastIndex(greaterthan10);
+        function greaterthan10(value, index,array)
+        {
+            return value > 30;
+        }
+
+        //Sort() --> works only for strings but not for numbers 
+        //compare()  --> custom sorting logic --> works for numbers.
+
+        const str = ["a","c","b","e","d"];
+        document.getElementById("display").innerHTML = str.sort().reverse();
+
+        //Ascending order
+        //If a - b returns a negative value, a comes before b.
+        //If a - b returns a positive value, a comes after b.
+        //If a - b returns 0, the order of a and b stays unchanged.
+
+        const numbers = [3,5,1,5,7,44];
+        document.getElementById("display").innerHTML = numbers.sort(
+            function(a,b)
+            {
+                return a-b;  
+            }
+        );
+
+
+        //Descending order
+        //If b-a returns a negative value, b comes after a.
+        //If b-a returns a positive value, b comes before a.
+        //If b-a returns 0, the order of a and b stays unchanged.
+
+        document.getElementById("display").innerHTML = numbers.sort(
+            function(a,b)
+            {
+                return b-a;  
+            }
+        );
+
+        //toSorted and toReversed will craete new array without alterung the original positions of an array.
+        </script>
+
+    </body>
+</html>
