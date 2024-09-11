@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    </head>
+    <style>
+
+   #navbar
+   {
+    display: block;
+    width: 100%;
+   }
+
+   .navbar
+   {
+    align-items: center;
+    justify-content: center;
+   }
+
+        input:focus
+        {
+            background-color: rgb(200, 223, 249);
+            outline: none; /* Removes the default outline on focus */
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            
+        }
+
+        #container
+        {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, rgb(184, 167, 249), white);
+
+        
+        }
+        #outer
+        {
+            display: grid;
+            grid-template-columns: 5fr 5fr; 
+            justify-content: center;
+            align-items: center;
+            margin-top: 10%;
+            /* padding: 8px; */
+            /* border: 2px solid black; */
+            /*border-left: 50px solid black;
+            border-bottom-left-radius: 50px;*/
+            width:80%;
+            border: 2px solid rgba(204, 241, 110, 0.5); 
+            box-shadow: 0px 5px 100px rgba(47, 61, 215, 0.3); 
+            border-radius: 15px;
+            
+
+        }
+        .custom-gap {
+            margin-right: 20px; /* Adjust the value to your desired gap */
+            margin-top: 6px;
+            height:35px;
+        }
+
+        #left,#right
+        {
+
+            height: 100%;
+            display: block;
+            width: 100%;
+            /* border:3px  solid saddlebrown; */
+            justify-content: center;
+            
+        }
+         img
+         {
+            height: 99%;
+            width:100%;
+         }
+        
+  
+        input[type=radio]
+        {
+            justify-content: left;
+        }
+
+        #Register
+        {
+
+            width: 98%;
+            height: 100%;
+            /* border: 1px solid rgb(186, 5, 5); */
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding-left: 12px;
+            
+
+        }
+
+        input[type=checkbox],input[type=radio]
+        {
+           width: 15px;
+           height: 15px;
+           
+
+        }
+
+        #gender > label
+        {
+            margin-top: 0px;
+            display: inline-flex;
+        }
+
+        select
+        {
+            width:55px;
+
+        }
+
+        #place
+        {
+            display:grid;
+            grid-template-columns: 2fr;   
+            width: 90%;
+            height: 60px;
+            gap:8px;
+            grid-template-areas:
+        "state city"
+        "district pincode";
+        }
+
+         
+        #state
+         {
+        grid-area: state;
+    }
+
+    #district {
+        grid-area: district;
+    }
+
+    #city {
+        grid-area: city;
+    }
+
+    #pincode {
+        grid-area: pincode;
+    }
+
+        .success
+        {
+            border-color:forestgreen;
+        }
+
+        .error
+        {
+            border-color: red;
+        }
+
+        .errormessage
+        {
+            color: red;
+        }
+       
+        input[name='placeinfo']
+        {
+            width:50%;
+        }
+
+        input,textarea
+        {
+            width: 90%; /* Make input fields span the full width of the form */
+            border-bottom: 1px solid black;        
+            border-top: 0px ;
+            border-left: 0px ;
+            border-right: 0px ;
+            height: 26px;
+            background-color: transparent;
+        }
+
+        #sigup-button
+        {
+            height: 45px;
+            box-shadow: 5px green;
+            border-radius: 20px;
+            color: white;            
+            border-style: unset;
+            border-color: bisque;
+            background-color: green
+            
+        }       
+       
+    </style>
+
+<body id="container">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <div id="navbar">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">  CodeMart Technologies</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Careers</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Disabled</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0 d-flex">
+            <input class="form-control custom-gap" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    </div>
+
+    <div id="outer">
+
+        <div id="left">
+            <img src="https://pbs.twimg.com/media/EzqMhlRUcAQIIsB?format=jpg&name=4096x4096"/>
+         </div>
+     
+         <div id="right">
+     
+             <form id = "Register" onsubmit="validateForm()">
+     
+                 <h4 style="color: green; text-align: center; margin-top: 4px;">REGISTER</h4>
+
+                 <div class="errormeassage" hidden></div>
+
+                 <input type="text" id="fn" value="" name="firstname" placeholder="Enter First name" required/><br>
+     
+                 <input type="text" name="lastname"  placeholder="Enter Last name"/><br>
+     
+                 <input type="email" name="emailid"  placeholder="Enter Email Id" required/><br>
+
+                 <input type="text" id = "password"  placeholder="Password (Maximum character : 8)"  maxlength="8"  required oninput="validatePassword()"/><br>
+
+                 <input type="text"  id="checkpassword" placeholder="Confirm Password" maxlength="8"  required onfocusout="validateCheckPassword()" /><br>
+
+                 <input type="date" placeholder="Date-of-Birth"/><br>
+
+                 <textarea placeholder="Address" id="address"  rows="4" cols="50" style="width: 90%;"></textarea><br>
+
+                 <div id="place">
+
+                     <input type =  text  id="state" placeholder="State" name="placeinfo"><br>
+                     <input type =  text id="city" placeholder="City"name="placeinfo" ><br>
+                     <input type =  text id="district"placeholder="District"name="placeinfo" ><br>
+                     <input type =  text id="pincode" placeholder="Pincode"name="placeinfo" >
+                 </div>
+                 <br>
+
+
+
+
+                  
+                 <div id ="bloodgroup">
+                 <label for="bloodgroup">BloodGroup:</label>
+                 <select name="bloodgroup" >
+                     <option value="A+ve">A+ve</option>
+                     <option value="B+ve">B+ve</option>
+                     <option value="AB+ve">AB+ve</option>
+                 </select>
+                </div>
+                 <br>
+     
+     
+                 <div id="gender">
+                 <label>Gender:</label>
+                 <input type="radio"  name = "gender" >
+                 <label for="Male">Male </label>
+                 <input type="radio"  name = "gender" >
+                 <label for="Female">Female </label>
+                </div>
+                  <br>
+     
+     
+                  <div id="hobbies">
+                 <label>Hobbies:</label>
+                 <input type="checkbox" name="hobbies" >
+                 <label for="Drawing">Drawing</label>
+                 <input type="checkbox" name="hobbies">
+                 <label for="Music">Music</label>
+                </div>
+                 <br>
+
+                 <input type="tel"  id="phoneno" maxlength="10"  placeholder="Mobile/Tel phone" ></input><br>
+
+                 <input type="file" id="resume"  placeholder="Upload Resume" required><br>
+
+                 <centre>
+     
+                 <input type="submit" id="sigup-button" value="SignUp">
+                </centre>
+
+    
+             </form>
+     
+            </div>
+        </div>
+               
+      <script>
+     
+
+    let address = document.getElementById("address");
+
+    address.addEventListener("focusout",function()
+    {
+        let errordiv = document.getElementById("errordiv");
+
+        if(!errordiv)
+        {
+            errordiv =  document.createElement("div");
+            errordiv.id = "errordiv";
+            errordiv.className = "errormessage";
+            document.getElementById("address").insertAdjacentElement('afterEnd',errordiv);
+        }        
+        if(address.value.trim() === "")
+        {
+            document.getElementById("errordiv").innerHTML = "Please fill out the address";
+        }
+        else
+        {   
+            document.getElementById("errordiv").innerHTML = "";
+            errordiv.remove();
+        }
+       
+    })
+
+
+    let phoneno =  document.getElementById("phoneno");
+
+    phoneno.addEventListener("focusout",function()
+    {
+        let errordiv = document.getElementById("errordiv");
+
+        if(!errordiv)
+        {
+            errordiv =  document.createElement("div");
+            errordiv.id = "errordiv";
+            errordiv.className = "errormessage";
+            document.getElementById("phoneno").insertAdjacentElement('afterEnd',errordiv);
+        }        
+        if(phoneno.value.trim() === "")
+        {
+            document.getElementById("errordiv").innerHTML = "Please fill out the Mobile number";
+        }
+        else
+        {   
+            document.getElementById("errordiv").innerHTML = "";
+            errordiv.remove();
+        }
+       
+    })
+
+     
+     
+     function validatePassword()
+     {
+          let pass = document.getElementById("password").value; //faizbanu
+
+          let errordiv = document.getElementById("errordiv");
+
+          if(!errordiv)
+          {
+              errordiv =  document.createElement("div");
+              errordiv.id = "errordiv";
+              errordiv.className = "errormessage";
+              document.getElementById("password").insertAdjacentElement('afterEnd',errordiv);
+          }
+
+          let caps=0,lower=0,number=0,special=0;
+          for(let i=0;i<pass.length;i++)
+          {
+            let ch = pass.charAt(i);
+             if(ch >= 'A' && ch<='Z')
+              {
+                 caps =caps+1;   
+              }
+              else if(ch>='a' && ch<='z')
+              {
+                lower=lower+1;
+              }
+              else if(ch >= '0' && ch<= '9')
+              {
+                 number = number+1;   // -!@#$%^&*+
+              }
+              else if(ch == '-' || ch == '@' || ch == '$' || ch == '_')
+              {
+                   special = special+1;
+              }
+
+          }
+
+          
+          if(pass.length <8 || pass.length > 8 || pass === null||caps < 1 || lower < 1 ||  number < 1 || special < 1)
+          {
+            document.getElementById("password").classList.add("error");  //In javacsirpt the property --> camelCase .            
+            document.getElementById("errordiv").innerHTML = "The password should not exceed 8 digits"+ "<br>"+"contain atleast one Uppercase <br> contains atleast one lowercase <br>contains atleast one number<br> contains atleast one special letter";
+          
+        }
+        //   document.getElementById("password").style.borderColor = "slateblue";
+        else
+        {
+          document.getElementById("password").classList.remove("error"); 
+          errordiv.innerHTML="";
+          errordiv.remove();  //to delete a particular element.
+
+        }
+    }
+     
+
+
+    function validateCheckPassword()
+    {
+        let password = document.getElementById("password").value;
+        let checkpassword = document.getElementById("checkpassword").value;
+        let errordiv = document.getElementById("errordiv");
+
+          if(!errordiv)
+          {
+              errordiv =  document.createElement("div");
+              errordiv.id = "errordiv";
+              errordiv.className = "errormessage";
+              document.getElementById("checkpassword").insertAdjacentElement('afterEnd',errordiv);
+          }
+
+        if(password !== checkpassword)
+        {
+            document.getElementById("checkpassword").classList.add("error");
+            document.getElementById("errordiv").innerHTML = "The Password does not mathched.";
+
+            
+
+        }
+        else
+        {
+            document.getElementById("checkpassword").classList.remove("error");
+            errordiv.innerHTML="";
+            errordiv.remove(); 
+
+        }
+    }
+
+
+    
+     function validateForm() 
+     {
+             const inputs = document.querySelectorAll("#Register input[type='text']");
+             const radiobuttons = document.querySelectorAll("#Register input[type='radio']");
+             const checkbox = document.querySelectorAll("#Register input[type='checkbox']");
+             const address = document.getElementById("address");
+             const phoneno = document.getElementById("phoneno");
+
+
+            let valid = true;
+             for (let i = 0; i < inputs.length; i++)
+              {
+                 if (inputs[i].value.trim() === "") {
+                     valid = false;
+                     break;
+                 }
+             }
+     
+             let radiobutton_valid = false;
+     
+             for(let i=0;i<radiobuttons.length;i++)
+             {
+                 if(radiobuttons[i].checked)
+                 {
+                     radiobutton_valid = true;
+                     break;
+                 }
+             }
+     
+             let checkbox_valid = false;
+     
+             for(let i=0;i<checkbox.length;i++)
+             {
+                 if(checkbox[i].checked)
+                 {
+                     checkbox_valid = true;
+                     break;
+                 }
+             }
+     
+     
+             // if(radiobutton_valid==true && checkbox_valid == true)
+             // {  
+             //    if(valid == false)  
+             //     {
+             //         alert("Please fill out the empty fields");
+             //         return false;
+             //     } 
+             // }
+             
+             if(valid == false || (checkbox_valid == false && radiobutton_valid == false && valid == false  && address.value.trim() === "" && phoneno.value.trim() === "") )
+             {
+                 alert("Please Fill out the empty fields");
+                 return false;
+             }
+             else if(radiobutton_valid == false)
+             {
+                 alert("PLease select your gender");
+     
+                 return false;
+     
+             }
+             else if(address.value.trim() == "")
+             {
+                alert("PLease enter your address");
+
+             }
+             else if(phoneno.value.trim() === "")
+             {
+                alert("PLease enter your phone number");
+
+             }
+             else if(checkbox_valid == false)
+             {
+                 alert("Please select atleast one of your hobbies");
+                 return false;
+             }
+             else 
+             {
+                 return true;
+             }
+     
+         }
+     
+
+    
+
+   
+  
+ </script>
+</body>
+</html>
