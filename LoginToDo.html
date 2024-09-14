@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+           
+           body
+           {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 100px;
+            background: linear-gradient(100deg,  rgb(249, 172, 198),rgb(202, 231, 241));
+
+
+           }
+
+
+           #outer
+           {
+               border: 1px solid transparent;
+               border-radius: 23px;
+               box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+               background-color: rgb(245, 253, 228);
+               padding: 30px;
+               width:400px;
+               height: 350px;
+               display: flex;
+               flex-direction: column;
+               justify-content: center;
+           }
+
+           #registerbtn
+           {
+               border-radius: 30px;
+           }
+
+           #email,#password
+           {
+             border-radius: 20px;
+             width:100%;
+             height: 30px;
+           }
+
+           #buttondiv
+           {
+              display: grid;
+              grid-template-rows: 1fr 1fr;
+              gap: 2px;
+           }
+
+           #loginbtn
+           {
+
+              border-radius: 30px;
+              height: 30px;
+              background-color: pink;
+              font-size: 100;
+              font-weight: bold;
+              font-family: Arial, Helvetica, sans-serif;
+           }
+           .errormessage
+           {
+            color: red;
+           }
+
+        </style>
+    </head>
+    <body>
+
+        <div id = "outer">
+            <h2>Login here!</h2>
+            <input type = "email"  id="email"  placeholder="Type your email address" /><br>
+            <input type="password" id="password"  placeholder="Type your password"/><br>
+            <div id="buttondiv"> 
+                <button type="submit" id="loginbtn">LOGIN</button><br>
+                <span style="color: red;">Not registered yet!!</span><a href="ResigterToDo.html" id="registerlink">Register</a>
+            </div>
+        </div>
+
+        <script>
+
+            const loginbtn = document.getElementById("loginbtn");
+            const emailaddress = document.getElementById("email");
+
+            loginbtn.addEventListener("click",function()
+            {
+                let email = emailaddress.value;  
+
+                let result = checkEmailInLocalStorage(email);
+
+                if(result == true)
+                {
+                    alert("Login successful");
+                    localStorage.setItem("loggeduser",email);
+                    window.location.href = "ToDoList.html";
+                    document.getElementById("email").value = "";
+
+                }
+
+                else
+                {
+                    alert("Email Id does not exists! Please register ");
+                    document.getElementById("email").value = "";
+
+                    
+
+                    // let errordiv = document.getElementById("errordiv");
+
+                    // if(!errordiv)
+                    // {
+                    //     errordiv =  document.createElement("div");
+                    //     errordiv.id = "errordiv";
+                    //     errordiv.className = "errormessage";
+                    //     document.getElementById("emailaddress").insertAdjacentElement('afterEnd',errordiv);
+                    // }       
+
+
+                }
+            })
+
+
+            function checkEmailInLocalStorage(email)
+            {
+                let flag = false;
+                let array = JSON.parse(localStorage.getItem("students_data"));
+                console.log(array);
+                
+                array.forEach(obj =>      // study the difference between foreach and some 
+                {  
+
+                    if(Object.keys(obj)[0] === email)    //index accessingseen in chatgpt
+                    {
+                        flag = true;
+                    }
+                        
+                });
+
+                if(flag == true)
+                {
+                    return true;
+                }
+                else{
+                    return false;
+                }
+
+               
+                    
+                 
+            }
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <style>
+
+           body
+           {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 170px;
+            background: linear-gradient(100deg,  rgb(249, 172, 198),rgb(202, 231, 241));
+
+
+           }
+
+
+           #outer
+           {
+               border: 1px solid transparent;
+               border-radius: 23px;
+               box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+               background-color: rgb(245, 253, 228);
+               padding: 30px;
+               width:400px;
+               height: 350px;
+               display: flex;
+               flex-direction: column;
+               justify-content: center;
+           }
+
+
+
+          
+
+
+
+           #email,#password
+           {
+            border-radius: 20px;
+             width:250px;
+             height: 60px;
+             width:100%;
+
+           }
+
+           #buttondiv
+           {
+              display: grid;
+              grid-template-rows: 1fr 1fr;
+              gap: 2px;
+              
+           }
+
+           #registerbtn
+           {
+               border-radius: 30px;
+               background-color: pink;
+               font-size: 100;
+               font-weight: bold;
+               font-family: Arial, Helvetica, sans-serif;
+           }
+
+        </style>
+    </head>
+    <body>
+
+        <div id = "outer">
+            <h2>Register here!</h2>
+            <input type = "email"  id="email" style="height:30px;" placeholder="Type your email address" /><br>
+            <input type="password" id="password"   style="height:30px;"placeholder="Type your password"/><br>
+            <div id="buttondiv">
+                <button type="submit" id="registerbtn" style="height:30px;">REGISTER</button><br>
+                <span style="color: red;">Already have an Account!!</span><a href="LoginToDo.html" id="loginlink">Login</a>
+            </div>
+        </div>
+
+
+
+        <script>
+
+
+              //localStorage.removeItem("student_data");
+
+            const emailaddress = document.getElementById("email");
+            const registerbtn = document.getElementById("registerbtn");
+
+            registerbtn.addEventListener("click",function()
+            {
+                let email = emailaddress.value;
+
+                const obj =
+                {
+                    [email]:   
+                    { 
+                    
+                        tasks: [],   //expects object to be wrapped value should ne either number , strings, ot object when using computed property like [email].
+                    }
+                                                
+                     
+                                                       
+                }
+
+                
+                let result = checkEmailInLocalStorage(email);
+
+                if(result == true)
+                {
+                    saveToLocalStorage(obj);
+                    alert("Registration Sucessfull!!");
+                    window.location.href="LoginToDo.html";
+
+                }
+
+                else
+                {
+                                        
+                      alert("Email Id Already exists");
+                }
+
+
+
+            })
+
+
+            function checkEmailInLocalStorage(email)
+            {
+
+
+                let flag = false;
+                let array = getFromLocalStorage();
+
+                if(array.length === 0)  // []
+                {
+                    return true;
+                }
+                else
+                {
+                    
+                    array.forEach(obj =>
+                     {
+
+                        if(Object.keys(obj)[0] === email)    //index accessingseen in chatgpt
+                        {
+                            flag = true;
+                            return false;
+                        }
+                        
+                    });
+                }
+
+                if(flag == false)
+                {
+                          return true;
+                }
+                                
+            }
+
+
+
+
+            function saveToLocalStorage(newobj)
+            {
+                let array = getFromLocalStorage();
+                array.push(newobj);
+                localStorage.setItem("students_data", JSON.stringify(array));
+                console.log(JSON.parse(localStorage.getItem("students_data")));
+
+
+            }
+            function getFromLocalStorage()
+            {
+                let data = JSON.parse(localStorage.getItem("students_data"));  //[]
+                if(data == null)
+                {
+                    return [];
+                }
+                else
+                {
+                    return data;
+
+                    /*
+                      {
+                         faizsheik008@gmail.com :
+                         {
+                             tasks : []
+                         }
+                       }
+                    */
+                }
+            }
+
+
+        </script>
+    </body>
+</html>

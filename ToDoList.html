@@ -13,6 +13,8 @@
                 background: linear-gradient(100deg,  rgb(249, 172, 198),rgb(202, 231, 241));
 
             }
+
+            
             #task {
                 border-radius: 15px;
                 height: 30px;
@@ -136,18 +138,21 @@
             font-size: 12px;
             white-space: nowrap;
         }
-     
-
-            
-
-            
+        #errordiv
+        {
+            color: red;
+        }
+       
+           
         </style>
 
         
     </head>
     <body>
         
-
+        <div id = navbar>
+            <h2 id="loguser" style="justify-content: right;"></h2>
+        </div>
 
         <div id="outer">
            
@@ -157,6 +162,7 @@
                 <input type = "text" id="task"  style="border-radius: 15px; height: 30px;"  placeholder="Enter your task"/>
                 <button type = "submit" id="submit" style="background-color: pink; height: 35px; border-radius: 15px; font-size: 100; font-weight: bold; font-family: Arial, Helvetica, sans-serif;">Add</button>
                 <input type = "search" id="search" placeholder="Search"   style=" height: 35px; width:65px;border-radius: 15px; font-size: 100; font-weight: bold; font-family: Arial, Helvetica, sans-serif;"/>
+               <div id="errordiv" className="errormessage"></div>
 
             </div>
             <div id = "viewtask">
@@ -181,35 +187,167 @@
       
 
         <script>
+            //localStorage.removeItem("tasks");
+
+
+
 
             const submit = document.getElementById("submit");
             const task = document.getElementById("task");
             const tasklist =  document.getElementById("tasklist");
-            const completeButton = document.getElementById("completeButton");
-            const uncompleteButton = document.getElementById("uncompleteButton");
             const completedTaskList = document.getElementById("completedTaskList");
             const uncompletedTaskList = document.getElementById("uncompletedTaskList");
 
-            submit.addEventListener("click",function()
-            {
 
-                    let taskvalue = task.value;
+
+            window.addEventListener("load", function() 
+            {
+                
+               let loggedemail = localStorage.getItem("loggeduser");
+
+                if(loggedemail)
+                {
+                    document.getElementById("loguser").innerHTML = loggedemail;
+
+                }
+
+
+                // if (!localStorage.getItem("tasks"))
+                // {
+                //   localStorage.setItem("tasks", JSON.stringify([])); // Initialize with an empty array
+                // }
+
+                let tasksarray = getFromLocalStorage();
+                tasksarray.forEach(taskObj => {
+     
+                      addTaskObjToDom(taskObj);
+
+                });
+
+            });
+
+
+
+            submit.addEventListener("click",renderlist);  
+
+            function renderlist()
+            {
+                
+                let taskvalue = task.value;
+
+                let errordiv = document.getElementById("errordiv"); 
+                if(taskvalue.trim()==="")
+                {
+                    
+                    document.getElementById("errordiv").innerHTML = "Tasks cannot be empty";
+                    return;   //mistake 2
+                }
+                else
+                {
+                    
+                        document.getElementById("errordiv").innerHTML = "";
+                }
+
+                const date = new Date();
+                const datenow = date.toLocaleDateString();
+                const timenow = date.toLocaleTimeString();
+
+                const taskobj = 
+                {
+
+                    description : taskvalue,
+                    taskcreated : datenow  + timenow,
+                    completed: false
+
+                }
+
+                saveToLocalStorage(taskobj);
+
+                addTaskObjToDom(taskobj)
+
+
+     
+            }
+
+
+            // function saveToLocalStorage(newobj)
+            // {
+            //        let listarray = [];
+            //        listarray = JSON.parse(localStorage.getItem("tasks"));
+            //        listarray.push(newobj);
+            //        localStorage.setItem("tasks",JSON.stringify(listarray));
+
+            // }
+
+                    function saveToLocalStorage(newobj)
+                    {
+                        let listarray = getFromLocalStorage();  
+
+                        if (!Array.isArray(listarray)) {
+                            listarray = [];  
+                        }
+
+                        listarray.push(newobj);  
+
+                        const data = JSON.parse(localStorage.getItem("students_data"));
+                        let emailaddress = document.getElementById("loguser").textContent;
+
+                        data.forEach((obj, index) => 
+                        {
+                            if (Object.keys(obj)[0] === emailaddress)
+                            {
+                                obj[emailaddress] = listarray;  
+                            }
+                        });
+
+                        localStorage.setItem("students_data", JSON.stringify(data));  
+                        console.log(data);
+                    }
+
+
+
+                    function getFromLocalStorage() 
+                    {
+                        let emailaddress = document.getElementById("loguser").textContent;
+                        const data = JSON.parse(localStorage.getItem("students_data"));
+
+                        for (let obj of data) {
+                            if (Object.keys(obj)[0] === emailaddress)
+                            {
+                                return obj[emailaddress];  
+                            }
+                        }
+                        return [];  
+                    }
+
+
+
+
+            // function getFromLocalStorage()
+            // {
+            //     const array = JSON.parse(localStorage.getItem("tasks"));
+            //     return array;
+            // }
+
+            function addTaskObjToDom(taskobj)
+            {
                     let list = document.createElement("li");
                     list.className = "listcss";
+
 
                     let checkbox = document.createElement("input");
                     checkbox.type = "checkbox";
                     checkbox.className= "checkboxid";
-
-
+                    checkbox.checked = taskobj.completed;
 
                     let taskText = document.createElement("span");
-                    taskText.textContent = taskvalue ;
+                   // taskText.textContent = taskvalue ;
+                    taskText.textContent = taskobj.description;
                     taskText.id = "taskTestId";
 
                     let datetime_span= document.createElement("span");
                     datetime_span.className="task-meta";
-                    let date= new Date();
+                    //let date= new Date();
                     datetime_span.style.width = "70px";
                     datetime_span.style.marginTop = "6px";
                     datetime_span.style.color= "rgb(39, 171, 92)";
@@ -217,13 +355,10 @@
                     datetime_span.style.fontWeight= "Bold";
 
 
-                    
-
-
-                    let datenow = date.toLocaleDateString();
-                    let timenow = date.toLocaleTimeString();
-                    datetime_span.innerText = datenow + timenow;
-
+                    //let datenow = date.toLocaleDateString();
+                    //let timenow = date.toLocaleTimeString();
+                   // datetime_span.innerText = datenow + timenow;
+                    datetime_span.innerText = taskobj.taskcreated;
 
                     
                     let del= document.createElement("button");
@@ -249,8 +384,6 @@
 
                     task.value = "";
 
-
-
                   
                     del.addEventListener("click",function()
                     {
@@ -259,45 +392,107 @@
 
                     update.addEventListener("click", function() 
                     {
-                        const newTask = prompt("Update the task:", taskText.textContent);
-                        if (newTask !== null && newTask.trim() !== "") 
-                        {
+                        const newTask = prompt("Update the task:", taskobj.text);
+                        if (newTask !== null && newTask.trim() !== "") {
                             taskText.textContent = newTask;
-                         }
-                     })    
-
-                     checkbox.addEventListener("click", function () 
-                    {
-                        if(checkbox.checked == true)
-                        {
-                            moveTasks(true);
-
-                        }
-                        else
-                        {
-                            moveTasks(false);
+                            taskobj.text = newTask;
+                            //updateToLocalStorageDomObject(taskobj);
                         }
                     });
 
-                    function moveTasks(toCompleted) 
-                   {
-                        let sourceList = toCompleted ? tasklist : completedTaskList;
-                        let targetList = toCompleted ? completedTaskList : uncompletedTaskList;
-                        let items = sourceList.querySelectorAll("li");
-
-                        items.forEach(item => {
-                            let checkbox = item.querySelector("input[type='checkbox']");
-                            if (checkbox.checked === toCompleted) {
-                                targetList.appendChild(item);
-                            }
-                        });
-                    }
+                    checkbox.addEventListener("change", function () 
+                    {
+                        taskobj.completed = checkbox.checked;  
+                        //updateToLocalStorageDomObject(taskobj);  
+                        moveTasks(list, checkbox.checked);
+                    });
 
 
-                    
 
-            })
+
+                //      checkbox.addEventListener("click", function (event) 
+                //     {
+                        
+                //         if(checkbox.checked == true)
+                //         {
+                //             moveTasks(true);
+
+                //         }
+                //         else
+                //         {
+                //             moveTasks(false);
+                //         }
+                //     });
+
+                //     function moveTasks(toCompleted) 
+                //    {
+                //        let sourceList = "";   if((tasklist,("li","input[type="checkbox"]")))
+                //        if((tasklist,(li,input[type="checkbox"])))
+                //        {
+                //           sourceList = tasklist;
+                //        }
+                //        else
+                //        {
+                //           sourceList = uncompletedTaskList;
+                //        }
+                //        // let sourceList = toCompleted ? tasklist || uncompletedTaskList : completedTaskList;
+                //         let targetList = toCompleted ? completedTaskList : uncompletedTaskList;
+                //         let items = sourceList.querySelectorAll("li");
+
+                //          items.forEach(item => {
+                //             let checkbox = item.querySelector("input[type='checkbox']");
+                //             if (checkbox.checked === toCompleted) {
+                //                 targetList.appendChild(item);
+                //             }
+                //         });
+                //     }
+
+                     
+                    // let uncompletedtask = uncompletedTaskList.querySelector("li");
+            
+                    // let checktask = uncompletedtask.forEach(list=>
+                    // {
+                    //     let checkboxelement = list.querySelector(input[type="checkbox"]);
+                    //     if(checkboxelement.checked == true)
+                    //     {
+                    //         completedTaskList.appendChild("checkboxelement");
+                    //     }
+                    // })
+                }
+
+                function moveTasks(taskItem, isChecked) 
+                {
+                    let targetList = isChecked ? completedTaskList : uncompletedTaskList;
+                    targetList.appendChild(taskItem);
+                }
+            
+
+
+                // function updateToLocalStorageDomObject(newtask)
+                // {
+                //          const tasks = getFromLocalStorage();
+                //          const taskIndex = tasks.findIndex(task => task.text === newtask.text && task.time === newtask.time);
+                //             if (taskIndex > -1) {
+                //                 tasks[taskIndex] = newtask;
+                //             }
+                //             localStorage.setItem("tasks", JSON.stringify(tasks));
+                //             console.log(localStorage.getItem("tasks"));
+                // }
+
            
+
+            // window.addEventListener("load",function()
+            // {
+            //     let tasksarray = getFromLocalStorage();
+
+            //     tasksarray.forEach(taskObj =>
+            //      {
+            //         addTaskObjToDom(taskObj);
+            //      });
+
+            // })
+
+
           
 
             search.addEventListener("input",function()
@@ -322,15 +517,7 @@
                 
             })
 
-
-            
-
-
-        
-        
-
-       
-           
+  
         </script>
     </body>
 </html>
